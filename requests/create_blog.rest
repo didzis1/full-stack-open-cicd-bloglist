@@ -1,0 +1,10 @@
+POST http://localhost:3002/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRpZHppczEiLCJpZCI6IjYwMzExNmM2MTAzMGJmMzUwNDc0MTI4ZSIsImlhdCI6MTYxMzkwOTM1OX0.zX_1uHBibuQBmTYKR6v_HQHm4sRx3cn7t6Q6bl9SNkQ
+
+{
+    "title": "This is a new blog",
+    "author": "valvatti",
+    "url": "test.fi",
+    "likes": 123
+}
