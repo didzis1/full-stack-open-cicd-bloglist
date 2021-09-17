@@ -16,6 +16,6 @@ jobs:
       - name: Install client and server dependencies
         run: npm install && cd client && npm install
       - name: Lint all files
-        run: npm run eslint && cd client && npm run eslint
+        run: npm run lint && cd client && npm run eslint
       - name: Create build
         run: cd client && npm run build
