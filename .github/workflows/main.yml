@@ -1,10 +1,21 @@
-# name: Main pipeline
+name: Main pipeline
 
-# on:
-#   push:
-#     branches: [main]
+on:
+  push:
+    branches: [main]
 
-# jobs:
-#   run_tests:
-#     runs-on: ubuntu-18.04
-#     steps:
+jobs:
+  run_tests:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install client and server dependencies
+        run: npm install && cd client && npm install
+      - name: Lint all files
+        run: npm run eslint && cd client && npm run eslint
+      - name: Create build
+        run: cd client && npm run build
