@@ -18,4 +18,4 @@ jobs:
       - name: Lint all files
         run: npm run lint && cd client && npm run eslint
       - name: Create build
-        run: npm run build
+        run: cd client && npm run build
