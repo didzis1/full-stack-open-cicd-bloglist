@@ -20,12 +20,22 @@ jobs:
 
       - name: Install client and server dependencies
         run: npm install && cd client && npm install
+
       - name: Lint all files
         run: npm run lint && cd client && npm run eslint
+
       - name: Create build
         run: cd client && npm run build
+
       - name: Run tests
         run: npm run test && cd client && npm run test
+
+      - name: Run end-to-end tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run start:test && cd client && npm run start && npx cypress run
+          wait-on: http://localhost:3000
+
       - name: Deploy to Heroku
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -33,5 +43,8 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: 'full-stack-open-cicd-bloglist'
           heroku_email: 'didzis.zvaigzne@gmail.com'
+          healthcheck: 'https://full-stack-open-cicd-bloglist.herokuapp.com/healthcheck'
+          checkstring: 'ok'
+          rollbackonhealthcheckfailed: true
       # - name: Run end-to-end tests with Cypress
       #   run: cd client && cypress run
