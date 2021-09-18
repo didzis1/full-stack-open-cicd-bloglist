@@ -5,6 +5,7 @@ const cors = require('cors')
 const blogRouter = require('./controllers/blogs')
 const userRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const healthCheckRouter = require('./controllers/healthCheck')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
@@ -26,17 +27,15 @@ mongoose
   })
 
 app.use(cors())
+app.use(express.static('./client/build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
-app.use(express.static('./client/build'))
 app.use('/api/blogs', blogRouter)
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
-app.get('/healthcheck', (req, res) => {
-  res.send('ok')
-})
+app.use('/healthcheck', healthCheckRouter)
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
