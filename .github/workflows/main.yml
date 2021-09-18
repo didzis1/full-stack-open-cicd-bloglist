@@ -12,6 +12,7 @@ jobs:
       TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
       SECRET: ${{ secrets.SECRET }}
       PORT: ${{ secrets.PORT }}
+      SKIP_PREFLIGHT_CHECK: true
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -35,7 +36,7 @@ jobs:
         with:
           command: npm run test:e2e
           start: npm run start:test
-          wait-on: http://localhost:8000
+          wait-on: http://localhost:3001
 
       - name: Deploy to Heroku
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
