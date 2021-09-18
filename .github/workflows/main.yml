@@ -33,7 +33,9 @@ jobs:
       - name: Run end-to-end tests
         uses: cypress-io/github-action@v2
         with:
-          command: npm run start:test && cd client && npm run start && npx cypress run
+          start: npm run start:test, npm run start:e2e
+          wait-on: 'http://localhost:3000'
+          command: npm run test:e2e
 
       - name: Deploy to Heroku
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
