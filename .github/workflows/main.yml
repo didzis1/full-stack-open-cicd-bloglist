@@ -26,5 +26,12 @@ jobs:
         run: cd client && npm run build
       - name: Run tests
         run: npm run test && cd client && npm run test
+      - name: Deploy to Heroku
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: 'full-stack-open-cicd-bloglist'
+          heroku_email: 'didzis.zvaigzne@gmail.com'
       # - name: Run end-to-end tests with Cypress
       #   run: cd client && cypress run
