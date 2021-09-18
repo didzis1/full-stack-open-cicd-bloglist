@@ -35,6 +35,7 @@ jobs:
         with:
           command: npm run test:e2e
           start: npm run start:test && npm run start:e2e:client
+          wait-on: http://localhost:3000
 
       - name: Deploy to Heroku
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
