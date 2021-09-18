@@ -25,8 +25,6 @@ jobs:
       - name: Create build
         run: cd client && npm run build
       - name: Run tests
-        env:
-          CI: true
         run: npm run test && cd client && npm run test
       # - name: Run end-to-end tests with Cypress
       #   run: cd client && cypress run
