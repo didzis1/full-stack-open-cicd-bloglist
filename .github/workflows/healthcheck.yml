@@ -1,0 +1,16 @@
+on:
+  push:
+    branches: [master]
+  # schedule:
+  #   # runs every 10 minutes
+  #   - cron: '10 * * * *'
+  # schedule commented out on purpose
+
+jobs:
+  check_site_health:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v2
+        with:
+          url: https://full-stack-open-cicd-bloglist.herokuapp.com/healthcheck
