@@ -48,8 +48,9 @@ jobs:
           healthcheck: 'https://full-stack-open-cicd-bloglist.herokuapp.com/healthcheck'
           checkstring: 'ok'
           rollbackonhealthcheckfailed: true
-      - uses: actions/checkout@v2
+
       - name: Bump the version and push tag
+      - uses: actions/checkout@v2
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')}}
         uses: anothrNick/github-tag-action@1.33.0
         env:
